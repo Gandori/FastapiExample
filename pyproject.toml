@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'FastapiTemplate'
+version = '0.1.0'
+description = 'Ein Template fuer Fastapi Anwendungen'
+requires-python = '>=3.11'
+readme = "README.md"
+authors = [
+    {name = 'Marcel Stiebing'}
+]
+dependencies = [
+    'uvicorn==0.21.1',
+    'python-dotenv==1.0.0',
+    'fastapi==0.95.1',
+    'pydantic==1.10.7',
+]
+
+[project.optional-dependencies]
+dev = [
+    'isort==5.12.0',
+    'black==23.3.0',
+    'flake8==6.0.0',
+    'flake8-pyproject==1.2.3',
+]
+
+[project.urls]
+'repository' = 'https://github.com/Gandori/FastapiTemplate'
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+
+[tool.flake8]
+max-line-length = 88
+
+[tool.isort]
+profile = "black"
