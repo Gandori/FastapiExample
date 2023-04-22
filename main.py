@@ -1,4 +1,4 @@
-import typing
+import pathlib
 
 import pydantic
 import uvicorn
@@ -11,8 +11,8 @@ class Server(pydantic.BaseSettings):
     reload: bool = False
     workers: int = 1
     backlog: int = 2048
-    limit_max_requests: typing.Union[int, None] = None
-    limit_concurrency: typing.Union[int, None] = None
+    limit_max_requests: int | None = None
+    limit_concurrency: int | None = None
     timeout_keep_alive: int = 5
     server_header: bool = False
     date_header: bool = False
@@ -34,4 +34,5 @@ class Server(pydantic.BaseSettings):
             timeout_keep_alive=self.timeout_keep_alive,
             server_header=self.server_header,
             date_header=self.date_header,
+            log_config=f'{pathlib.Path(__file__).parent.resolve()}/log.ini',
         )
