@@ -10,3 +10,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "10000:10000"
+    volumes:
+      - "./data:/microservice/data"
