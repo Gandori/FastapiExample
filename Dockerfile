@@ -20,6 +20,14 @@ ENV ALLOWED_HOSTS=*
 ENV SECRET_KEY=v9D6&6^Z5yvaTvylzhZ@Svem7$TZTtr3NJmZR^G$yUMqCLRgH
 ENV COOKIE_NAME=template
 
+# database
+ENV DB_DRIVER=postgresql+asyncpg
+ENV DB_PORT=5432
+ENV DB_HOST=template-db
+ENV DB_DATABASE=Template
+ENV DB_USERNAME=template
+ENV DB_PASSWORD=template
+
 WORKDIR /microservice
 
 COPY . .
