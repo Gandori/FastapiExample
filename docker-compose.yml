@@ -11,4 +11,22 @@ services:
     ports:
       - "10000:10000"
     volumes:
-      - "./data:/microservice/data"
+      - ./data/template-service:/microservice/data
+    networks:
+      - template
+
+  template-db:
+    image: postgres:alpine
+    container_name: template-db
+    restart: always
+    environment:
+      POSTGRES_USER: template
+      POSTGRES_PASSWORD: template
+      POSTGRES_DB: Template
+    volumes:
+      - ./data/template-service/postgres:/var/lib/postgresql/data
+    networks:
+    - template
+    
+networks:
+  template:
