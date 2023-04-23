@@ -16,6 +16,7 @@ dependencies = [
     'python-dotenv==1.0.0',
     'fastapi==0.95.1',
     'pydantic==1.10.7',
+    'starlette-session==0.4.3',
 ]
 
 [project.optional-dependencies]

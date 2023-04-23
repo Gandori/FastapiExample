@@ -2,4 +2,5 @@ venv
 __pycache__
 build
 *.log
+*.egg-info
 .pytest_chache
