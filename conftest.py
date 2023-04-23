@@ -1,6 +1,12 @@
+import os
+import time
+
+
 def pytest_sessionstart() -> None:
-    print('TEST START')
+    os.system('docker-compose up --detach --build')
+    time.sleep(5)
 
 
 def pytest_sessionfinish() -> None:
-    print('TEST END')
+    time.sleep(5)
+    os.system('docker-compose down')

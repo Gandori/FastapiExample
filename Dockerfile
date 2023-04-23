@@ -1,0 +1,27 @@
+FROM python:3.11-alpine
+
+
+# uvicorn
+ENV HOST=0.0.0.0
+ENV PORT=10000
+ENV LOG_LEVEL=info
+ENV WORKERS=1
+ENV BACKLOCK=2048
+ENV LIMIT_MAX_REQUESTS=1000
+ENV LIMIT_CONCURRENCY=1000
+ENV TIMEOUT_KEEP_ALIVE=5
+ENV SERVER_HEADER=False
+ENV DATE_HEADER=False
+
+# api
+ENV PREFIX=
+ENV DOCS_URL=/docs
+ENV ALLOWED_HOSTS=*
+
+WORKDIR /microservice
+
+COPY . .
+
+RUN pip install --upgrade pip && pip install .
+
+CMD ["python3", "." ]

@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  template-service:
+    image: template-service
+    container_name: template-service
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
