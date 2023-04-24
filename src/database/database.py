@@ -1,7 +1,7 @@
 from typing import Any
 
 from pydantic import BaseSettings
-from sqlalchemy import select, text, update
+from sqlalchemy import delete, select, text, update
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -87,4 +87,9 @@ class Database:
     async def update_where(self, table, values, where) -> None:
         async with self.session() as session:
             await session.execute(update(table).where(where).values(values))
+            await session.commit()
+
+    async def delete(self, table, where) -> None:
+        async with self.session() as session:
+            await session.execute(delete(table).where(where))
             await session.commit()
