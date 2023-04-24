@@ -7,7 +7,8 @@ from src.schemas.items import ItemDB, ItemIn, ItemOut
 class ItemsCrud:
     @staticmethod
     async def all() -> list[ItemOut]:
-        return await db.select_all(table=Items, order=Items.id)
+        result = await db.select_all(table=Items, order=Items.id)
+        return [item.__dict__ for item in result]
 
     @staticmethod
     async def new(item: ItemIn, user_id) -> None:
