@@ -34,6 +34,7 @@ async def new(user: UserIn):
 async def delete(id: int):
     try:
         await crud.exists(id=id)
+        await crud.delete_items(user_id=id)
         await crud.delete(id=id)
     except UserNotFound:
         return UserNotFound().response()

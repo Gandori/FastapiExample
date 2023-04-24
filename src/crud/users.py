@@ -32,3 +32,7 @@ class UsersCrud:
     async def get_items(user_id: int) -> list[ItemOut]:
         result = await db.select_all_where(table=Items, where=Items.user_id == user_id)
         return [item.__dict__ for item in result]
+
+    @staticmethod
+    async def delete_items(user_id: int) -> None:
+        await db.delete(table=Items, where=Items.user_id == user_id)
