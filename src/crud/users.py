@@ -1,5 +1,5 @@
 from src.database import db
-from src.exeptions.users import NotFound
+from src.exeptions.users import UserNotFound
 from src.models.users import Users
 from src.schemas.users import UserIn, UserOut
 
@@ -16,7 +16,7 @@ class Crud:
     @staticmethod
     async def exists(id: int) -> None:
         if not await db.select_where(table=Users, where=Users.id == id):
-            raise NotFound
+            raise UserNotFound
 
     @staticmethod
     async def delete(id: int) -> None:
