@@ -1,45 +1,32 @@
-import threading
-import typing
-
 import dotenv
 import httpx
 from httpx import Response
 from pydantic import BaseSettings
 
 
-class Request(BaseSettings):
+class Settings(BaseSettings):
     host: str = 'localhost'
-    port: int = 8080
+    port: int = 10000
     prefix: str = ''
 
+
+class Request:
     def __init__(self) -> None:
         dotenv.load_dotenv()
-        super().__init__()
+        settings = Settings()
+        self.host: str = settings.host
+        self.port: int = settings.port
+        self.prefix: str = settings.prefix
+        self._url: str = f'http://{self.host}:{self.port}{self.prefix}'
 
-    def get_request(self, route: str) -> Response:
-        return httpx.get(url=f'http://{self.host}:{self.port}{self.prefix}{route}')
+    def get(self, route: str) -> Response:
+        return httpx.get(url=f'{self._url}{route}')
 
-    def post_request(
-        self, data: list[typing.Dict] | typing.Dict, route: str
-    ) -> Response:
-        return httpx.post(
-            url=f'http://{self.host}:{self.port}{self.prefix}{route}', json=data
-        )
+    def post(self, json: dict, route: str) -> Response:
+        return httpx.post(url=f'{self._url}{route}', json=json)
 
-    def put_request(self, data: typing.Dict, route: str) -> Response:
-        return httpx.put(
-            url=f'http://{self.host}:{self.port}{self.prefix}{route}', json=data
-        )
+    def put(self, json: dict, route: str) -> Response:
+        return httpx.put(url=f'{self._url}{route}', json=json)
 
-    def delete_request(self, route: str) -> Response:
-        return httpx.delete(url=f'http://{self.host}:{self.port}{self.prefix}{route}')
-
-
-def thread_decorator(m) -> typing.Callable:
-    def wrapper(*args, **kwargs) -> None:
-        for _ in range(100):
-            t = threading.Thread(target=m(*args, **kwargs), daemon=True)
-            t.start()
-            t.join()
-
-    return wrapper
+    def delete(self, route: str) -> Response:
+        return httpx.delete(url=f'{self._url}{route}')
