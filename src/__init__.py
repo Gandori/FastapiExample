@@ -5,6 +5,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
 
+from src.database import db
 from src.middleware import Middleware
 from src.service import Service
 
@@ -31,12 +32,12 @@ for i in os.listdir(endpoints_folder_path):
 
 @app.on_event('startup')
 async def startup() -> None:
-    pass
+    await db.create_tables()
 
 
 @app.on_event('shutdown')
 async def shutdown() -> None:
-    pass
+    await db.drop_tables()
 
 
 @app.exception_handler(404)
