@@ -5,7 +5,6 @@ from sqlalchemy import delete, select, text, update
 from sqlalchemy.engine import URL
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import selectinload
 
 Base: Any = declarative_base()
 
