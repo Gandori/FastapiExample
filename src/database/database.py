@@ -66,9 +66,8 @@ class Database:
 
     async def select_all(self, table, order) -> Any:
         async with self.session() as session:
-            return (
-                (await session.execute(select(table).order_by(order))).scalars().all()
-            )
+            result = await session.execute(select(table).order_by(order))
+            return [row.__dict__ for row in result.scalars().all()]
 
     async def add(self, row) -> Any | None:
         async with self.session() as session:
