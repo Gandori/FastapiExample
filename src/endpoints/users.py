@@ -1,7 +1,12 @@
 from fastapi import APIRouter
 
 from src.crud.users import Crud
-from src.exeptions.users import CreatedSucess, DeletedSucess, NotFound, UpdatedSucess
+from src.exeptions.users import (
+    UserCreatedSucess,
+    UserDeletedSucess,
+    UserNotFound,
+    UserUpdatedSucess,
+)
 from src.schemas.users import UserIn, UserOut
 
 router: APIRouter = APIRouter()
@@ -16,7 +21,7 @@ async def all():
 @router.post('/users')
 async def new(user: UserIn):
     await Crud.new(user=user)
-    return CreatedSucess().response()
+    return UserCreatedSucess().response()
 
 
 @router.delete('/users/{id}')
@@ -24,10 +29,10 @@ async def delete(id: int):
     try:
         await Crud.exists(id=id)
         await Crud.delete(id=id)
-    except NotFound:
-        return NotFound().response()
+    except UserNotFound:
+        return UserNotFound().response()
 
-    return DeletedSucess().response()
+    return UserDeletedSucess().response()
 
 
 @router.put('/users/{id}')
@@ -35,7 +40,7 @@ async def update(id: int, user: UserIn):
     try:
         await Crud.exists(id=id)
         await Crud.update(id=id, user=user)
-    except NotFound:
-        return NotFound().response()
+    except UserNotFound:
+        return UserNotFound().response()
 
-    return UpdatedSucess().response()
+    return UserUpdatedSucess().response()

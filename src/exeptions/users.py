@@ -3,21 +3,21 @@ from starlette import status
 from src.exeptions.base_exeption import BaseExeption
 
 
-class CreatedSucess(BaseExeption):
+class UserCreatedSucess(BaseExeption):
     status_code = status.HTTP_200_OK
     message = 'User Erfolgreich Erstellt'
 
 
-class DeletedSucess(BaseExeption):
+class UserDeletedSucess(BaseExeption):
     status_code = status.HTTP_200_OK
     message = 'User Erfolgreich Entfernt'
 
 
-class NotFound(BaseExeption):
+class UserNotFound(BaseExeption):
     status_code = status.HTTP_200_OK
     message = 'User Exestiert nicht'
 
 
-class UpdatedSucess(BaseExeption):
+class UserUpdatedSucess(BaseExeption):
     status_code = status.HTTP_200_OK
     message = 'Update Erfolgreich'
