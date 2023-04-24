@@ -4,7 +4,7 @@ from src.models.users import Users
 from src.schemas.users import UserIn, UserOut
 
 
-class Crud:
+class UsersCrud:
     @staticmethod
     async def all() -> list[UserOut]:
         return await db.select_all(table=Users, order=Users.id)
