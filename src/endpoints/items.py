@@ -21,7 +21,7 @@ async def all():
     return await crud.all()
 
 
-@router.post('/items{user_id}')
+@router.post('/items/{user_id}')
 async def new(user_id: int, item: ItemIn):
     try:
         await UsersCrud.exists(id=user_id)
