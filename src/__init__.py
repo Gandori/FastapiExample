@@ -35,7 +35,7 @@ async def startup() -> None:
     await db.create_tables()
 
     path: str = 'src/sql'
-    for file_name in os.listdir(path):
+    for file_name in ['users.sql', 'items.sql']:
         with open(f'{path}/{file_name}', mode='r') as file:
             for query in file.read().split(';'):
                 if query != '':

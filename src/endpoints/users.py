@@ -7,6 +7,7 @@ from src.exeptions.users import (
     UserNotFound,
     UserUpdatedSucess,
 )
+from src.schemas.items import ItemOut
 from src.schemas.users import UserIn, UserOut
 
 router: APIRouter = APIRouter()
@@ -16,7 +17,11 @@ crud: UsersCrud = UsersCrud()
 
 @router.get('/users', response_model=list[UserOut])
 async def all():
-    return await crud.all()
+    Users: list[UserOut] = []
+    for user in await crud.all():
+        items: list[ItemOut] = await crud.get_items(user_id=user.id)
+        Users.append(UserOut(**user.__dict__, items=items))
+    return Users
 
 
 @router.post('/users')
