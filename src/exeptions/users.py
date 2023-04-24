@@ -16,3 +16,8 @@ class DeletedSucess(BaseExeption):
 class NotFound(BaseExeption):
     status_code = status.HTTP_200_OK
     message = 'User Exestiert nicht'
+
+
+class UpdatedSucess(BaseExeption):
+    status_code = status.HTTP_200_OK
+    message = 'Update Erfolgreich'

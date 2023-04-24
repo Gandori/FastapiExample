@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from src.crud.users import Crud
-from src.exeptions.users import CreatedSucess, DeletedSucess, NotFound
+from src.exeptions.users import CreatedSucess, DeletedSucess, NotFound, UpdatedSucess
 from src.schemas.users import UserIn, UserOut
 
 router: APIRouter = APIRouter()
@@ -28,3 +28,14 @@ async def delete(id: int):
         return NotFound().response()
 
     return DeletedSucess().response()
+
+
+@router.put('/users/{id}')
+async def update(id: int, user: UserIn):
+    try:
+        await Crud.exists(id=id)
+        await Crud.update(id=id, user=user)
+    except NotFound:
+        return NotFound().response()
+
+    return UpdatedSucess().response()

@@ -21,3 +21,7 @@ class Crud:
     @staticmethod
     async def delete(id: int) -> None:
         await db.delete(table=Users, where=Users.id == id)
+
+    @staticmethod
+    async def update(id: int, user: UserIn) -> None:
+        await db.update_where(table=Users, values=user.dict(), where=Users.id == id)
