@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from src.crud.users import Crud
+from src.exeptions.users import CreatedSucess
 from src.schemas.users import UserIn, UserOut
 
 router: APIRouter = APIRouter()
@@ -15,4 +16,4 @@ async def all():
 @router.post('/users')
 async def new(user: UserIn):
     await Crud.new(user=user)
-    return user
+    return CreatedSucess().response()
