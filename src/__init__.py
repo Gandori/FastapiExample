@@ -1,6 +1,5 @@
 import importlib.util
 import os
-import pathlib
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import HTTPException
