@@ -22,6 +22,7 @@ async def new(user: UserIn):
 @router.delete('/users/{id}')
 async def delete(id: int):
     try:
+        await Crud.exists(id=id)
         await Crud.delete(id=id)
     except NotFound:
         return NotFound().response()

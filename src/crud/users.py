@@ -14,7 +14,10 @@ class Crud:
         await db.add(row=Users(**user.dict()))
 
     @staticmethod
-    async def delete(id: int) -> None:
+    async def exists(id: int) -> None:
         if not await db.select_where(table=Users, where=Users.id == id):
             raise NotFound
+
+    @staticmethod
+    async def delete(id: int) -> None:
         await db.delete(table=Users, where=Users.id == id)
