@@ -67,7 +67,12 @@ class Database:
     async def select_all(self, table, order) -> Any:
         async with self.session() as session:
             result = await session.execute(select(table).order_by(order))
-            return [row.__dict__ for row in result.scalars().all()]
+            return result.scalars().all()
+
+    async def select_all_where(self, table, where) -> Any:
+        async with self.session() as session:
+            result = await session.execute(select(table).where(where))
+            return result.scalars().all()
 
     async def add(self, row) -> Any | None:
         async with self.session() as session:
@@ -75,14 +80,6 @@ class Database:
             await session.commit()
             await session.refresh(row)
             return row
-
-    async def select_all_with_childs(self, table, childs) -> Any:
-        async with self.session() as session:
-            return (
-                (await session.execute(select(table).options(selectinload(childs))))
-                .scalars()
-                .all()
-            )
 
     async def update_where(self, table, values, where) -> None:
         async with self.session() as session:
