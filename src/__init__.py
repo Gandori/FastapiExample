@@ -34,6 +34,13 @@ for i in os.listdir(endpoints_folder_path):
 async def startup() -> None:
     await db.create_tables()
 
+    path: str = 'src/sql'
+    for file_name in os.listdir(path):
+        with open(f'{path}/{file_name}', mode='r') as file:
+            for query in file.read().split(';'):
+                if query != '':
+                    await db.execute(query=query)
+
 
 @app.on_event('shutdown')
 async def shutdown() -> None:
